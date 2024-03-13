@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+256modelruns/
+model256_weights/
+vis/
+vis_results/
+
 # Distribution / packaging
 .Python
 build/
