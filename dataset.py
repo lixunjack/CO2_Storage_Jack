@@ -123,11 +123,24 @@ class MyDataset(Dataset):
             eps = data_dict['eps'][file_idx][:, :, :-1]
             Ux = data_dict['Ux'][file_idx][:, :, :-1]
             Uy = data_dict['Uy'][file_idx][:, :, :-1]
+            
+            C_t = data_dict['eps'][file_idx][:, :, 1:]
             eps_t = data_dict['eps'][file_idx][:, :, 1:]
-
+            Ux_t = data_dict['Ux'][file_idx][:, :, 1:]
+            Uy_t = data_dict['Uy'][file_idx][:, :, 1:]
+            
             # mask = log_transform(eps_t - eps[:, :, :-1]) # this scaled from 0 to 1
-            mask = eps_t - eps
-
+            
+            #model baseline
+            #mask = eps_t - eps
+            
+            #model II: predict next directly
+            mask = eps_t
+            
+            #Model III
+            #mask = np.stack([C_t, eps_t, Ux_t, Uy_t], axis=-1)
+            
+            
             # these should be moved to preprocessing
             # C_scaled = log_transform(C*scaling_dict['C_scaling']) - 0.5 # scale to be from 0 to 1
             C = C*scaling_dict['C_scaling'] - 0.5
