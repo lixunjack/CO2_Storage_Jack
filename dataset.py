@@ -7,7 +7,7 @@ h5py._errors.unsilence_errors()
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 from datetime import datetime
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 
 
 
@@ -83,6 +83,7 @@ class MyDataset(Dataset):
             'eps_std': eps_std,
         }
         
+
         return data_scalingdict
         
         
@@ -133,9 +134,11 @@ class MyDataset(Dataset):
             Ux = (Ux - scaling_dict['Ux_mean']) / scaling_dict['Ux_std']
             Uy = (Uy - scaling_dict['Uy_mean']) / scaling_dict['Uy_std']
             eps = (eps - scaling_dict['eps_mean']) / scaling_dict['eps_std']
-
-
+                
+            #wait, why are doing this??? concatenate?
             image = np.stack([C, eps, Ux, Uy], axis=-1)
+            
+            
             image = np.swapaxes(image, 3, 2)
 
             masks.append(mask)
@@ -156,5 +159,15 @@ class MyDataset(Dataset):
             data_dict['Ux'].append(Ux[2:-2, 2:-2, :])
             data_dict['Uy'].append(Uy[2:-2, 2:-2, :])
         return data_dict
+        
+    
+    
+
+
+
+    
+
+
+
     
  
