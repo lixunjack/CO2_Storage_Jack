@@ -135,11 +135,11 @@ class MyDataset(Dataset):
             #mask = eps_t - eps
             
             #model II: predict next snapshot directly!
-            mask = eps_t
+            #mask = eps_t
             
             #Model III
-            #mask = np.stack([C_t, eps_t, Ux_t, Uy_t], axis=-1)
-            #mask = np.swapaxes(mask, 3, 2)
+            mask = np.stack([C_t, eps_t, Ux_t, Uy_t], axis=-1)
+            mask = np.swapaxes(mask, 3, 2)
             
             # these should be moved to preprocessing
             # C_scaled = log_transform(C*scaling_dict['C_scaling']) - 0.5 # scale to be from 0 to 1
