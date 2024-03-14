@@ -139,7 +139,7 @@ class MyDataset(Dataset):
             
             #Model III
             #mask = np.stack([C_t, eps_t, Ux_t, Uy_t], axis=-1)
-            
+            #mask = np.stack([C_t, eps_t, Ux_t, Uy_t], axis=-1)
             
             # these should be moved to preprocessing
             # C_scaled = log_transform(C*scaling_dict['C_scaling']) - 0.5 # scale to be from 0 to 1
