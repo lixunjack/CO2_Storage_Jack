@@ -31,7 +31,7 @@ class MyDataset(Dataset):
         self.image, self.mask = self._preprocess_data_cube(data_dict, scaling_dict)
         #print(self.image.shape, self.mask.shape)
         self.data_len = self.image.shape[-1]
-        
+        #print(f'self.data_len: {self.image.shape}, {self.mask.shape}')
         
     def __len__(self):
         # assume one file for now
@@ -40,17 +40,21 @@ class MyDataset(Dataset):
     def __getitem__(self, idx):
         
         image = self.image[:, :, :, idx]
-        mask = self.mask[:, :, idx]
+        mask = self.mask[:, :, :, idx]
         
         # apply augmentations
         if self.augmentation:
+            #print(f'__getitem__: {image.shape}, {mask.shape}')
+            
             sample = self.augmentation(image=image, mask=mask)
             image, mask = sample['image'], sample['mask']
-        
+            #print(f'__getitem__: {image.shape}, {mask.shape}')
+            
         # apply preprocessing
         if self.preprocessing:
             sample = self.preprocessing(image=image, mask=mask)
             image, mask = sample['image'], sample['mask']
+            #print(f'self.preprocessing: {image.shape}, {mask.shape}')
             
         return image, mask
 
@@ -139,7 +143,9 @@ class MyDataset(Dataset):
             
             #Model III
             mask = np.stack([C_t, eps_t, Ux_t, Uy_t], axis=-1)
+            #print(mask.shape)
             mask = np.swapaxes(mask, 3, 2)
+            #print(mask.shape)
             
             # these should be moved to preprocessing
             # C_scaled = log_transform(C*scaling_dict['C_scaling']) - 0.5 # scale to be from 0 to 1
@@ -148,7 +154,7 @@ class MyDataset(Dataset):
             Uy = (Uy - scaling_dict['Uy_mean']) / scaling_dict['Uy_std']
             eps = (eps - scaling_dict['eps_mean']) / scaling_dict['eps_std']
                 
-            #wait, why are doing this??? concatenate?
+            
             image = np.stack([C, eps, Ux, Uy], axis=-1)
             
             
