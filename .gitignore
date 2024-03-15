@@ -11,6 +11,11 @@ model256_weights/
 vis/
 vis_results/
 
+results/
+
+backup/
+lightning_logs/
+
 # Distribution / packaging
 .Python
 build/
