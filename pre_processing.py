@@ -5,7 +5,7 @@ def to_tensor_img(x, **kwargs):
     return x.transpose(2, 0, 1).astype('float32')
 
 def to_tensor_mask(x, **kwargs):
-    return x.astype('float32')
+    return x.transpose(2, 0, 1).astype('float32')
 
 def get_preprocessing():
     """Construct preprocessing transform
