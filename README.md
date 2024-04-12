@@ -1,6 +1,6 @@
 ECO-AI Project: Carbon Capture and Storage with AI
 
-Logging my code development for the Hackathon (https://ai4netzero.github.io/eco-ai/hackathon/)
+Logging my code development for a three-day Hackathon (https://ai4netzero.github.io/eco-ai/hackathon/)
 
 About the Hackathon:
 
